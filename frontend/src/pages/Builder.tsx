@@ -11,6 +11,7 @@ import { BACKEND_URL } from '../config';
 import { parseXml } from '../steps';
 import { useWebContainer } from '../hooks/useWebContainer';
 import { Loader } from '../components/Loader';
+import { Terminal } from '../components/Terminal';
 
 export function Builder() {
   const location = useLocation();
@@ -20,6 +21,7 @@ export function Builder() {
   const [loading, setLoading] = useState(false);
   const [templateSet, setTemplateSet] = useState(false);
   const webcontainer = useWebContainer();
+  const [logs, setLogs] = useState<string[]>([]);
 
   const [currentStep, setCurrentStep] = useState(1);
   const [activeTab, setActiveTab] = useState<'code' | 'preview'>('code');
@@ -188,7 +190,7 @@ export function Builder() {
       </header>
       
       <div className="flex-1 overflow-hidden">
-        <div className="h-full grid grid-cols-4 gap-4 p-4">
+        <div className="h-full grid grid-cols-4 gap-8 p-8"> {/* Update 1 */}
           <div className="col-span-1 space-y-6 overflow-auto">
             <div>
               <div className="max-h-[75vh] overflow-scroll">
@@ -199,38 +201,47 @@ export function Builder() {
                 />
               </div>
               <div>
-                <div className='flex'>
-                  <br />
-                  {(loading || !templateSet) && <Loader />}
-                  {!(loading || !templateSet) && <div className='flex'>
-                    <textarea value={userPrompt} onChange={(e) => {
-                    setPrompt(e.target.value)
-                  }} className='p-2 w-full bg-[#161B22] border border-[#30363D] rounded-md text-[#E6EDF3] resize-none focus:outline-none focus:border-[#58A6FF]'/>
-                  <button onClick={async () => {
-                    const newMessage = {
-                      role: "user" as "user",
-                      content: userPrompt
-                    };
+                <div className='mt-4'> {/* Update 2 */}
+                  <div className='flex gap-2'> {/* Update 2 */}
+                    {(loading || !templateSet) && <Loader />}
+                    {!(loading || !templateSet) && <div className='flex w-full gap-2'> {/* Update 2 */}
+                      <textarea 
+                        value={userPrompt} 
+                        onChange={(e) => setPrompt(e.target.value)}
+                        placeholder="Type your message..."
+                        className='p-3 w-full bg-[#161B22] border border-[#30363D] rounded-lg text-[#E6EDF3] resize-none focus:outline-none focus:border-[#58A6FF] min-h-[80px]'
+                      />
+                      <button 
+                        onClick={async () => {
+                          const newMessage = {
+                            role: "user" as "user",
+                            content: userPrompt
+                          };
 
-                    setLoading(true);
-                    const stepsResponse = await axios.post(`${BACKEND_URL}/chat`, {
-                      messages: [...llmMessages, newMessage]
-                    });
-                    setLoading(false);
+                          setLoading(true);
+                          const stepsResponse = await axios.post(`${BACKEND_URL}/chat`, {
+                            messages: [...llmMessages, newMessage]
+                          });
+                          setLoading(false);
 
-                    setLlmMessages(x => [...x, newMessage]);
-                    setLlmMessages(x => [...x, {
-                      role: "model",
-                      content: stepsResponse.data.response.text
-                    }]);
-                    
-                    setSteps(s => [...s, ...parseXml(stepsResponse.data.response.text).map(x => ({
-                      ...x,
-                      status: "pending" as "pending"
-                    }))]);
+                          setLlmMessages(x => [...x, newMessage]);
+                          setLlmMessages(x => [...x, {
+                            role: "model",
+                            content: stepsResponse.data.response.text
+                          }]);
+                          
+                          setSteps(s => [...s, ...parseXml(stepsResponse.data.response.text).map(x => ({
+                            ...x,
+                            status: "pending" as "pending"
+                          }))]);
 
-                  }} className='bg-[#238636] hover:bg-[#2EA043] text-white px-4 py-2 rounded-md ml-2'>Send</button>
-                  </div>}
+                        }} 
+                        className='bg-[#238636] hover:bg-[#2EA043] text-white px-6 rounded-lg font-medium'
+                      >
+                        Send
+                      </button>
+                    </div>}
+                  </div>
                 </div>
               </div>
             </div>
@@ -241,14 +252,23 @@ export function Builder() {
                 onFileSelect={setSelectedFile}
               />
             </div>
-          <div className="col-span-2 bg-gray-900 rounded-lg shadow-lg p-4 h-[calc(100vh-8rem)]">
+          <div className="col-span-2 bg-[#161B22] rounded-lg border border-[#30363D] overflow-hidden h-[calc(100vh-8rem)]"> {/* Update 3 */}
             <TabView activeTab={activeTab} onTabChange={setActiveTab} />
             <div className="h-[calc(100%-4rem)]">
               {activeTab === 'code' ? (
-                <CodeEditor file={selectedFile} />
+                <div className="h-full flex flex-col"> {/* Update 3 */}
+                  <div className="flex-1"> {/* Update 3 */}
+                    <CodeEditor file={selectedFile} />
+                  </div>
+                  <Terminal logs={logs} /> {/* Update 3 */}
+                </div>
               ) : (
-                //@ts-ignore
-                <PreviewFrame webContainer={webcontainer} files={files} />
+                <PreviewFrame 
+                  //@ts-ignore
+                  webContainer={webcontainer} 
+                  files={files}
+                  onLog={(log) => setLogs(prev => [...prev, log])}
+                />
               )}
             </div>
           </div>

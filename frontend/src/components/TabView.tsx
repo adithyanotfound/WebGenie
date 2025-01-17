@@ -7,13 +7,13 @@ interface TabViewProps {
 
 export function TabView({ activeTab, onTabChange }: TabViewProps) {
   return (
-    <div className="flex space-x-2 mb-4">
+    <div className="flex border-b border-[#30363D]">
       <button
         onClick={() => onTabChange('code')}
-        className={`flex items-center gap-2 px-4 py-2 rounded-md transition-colors ${
+        className={`flex items-center gap-2 px-6 py-3 transition-colors border-b-2 ${
           activeTab === 'code'
-            ? 'bg-[#1F2428] text-[#E6EDF3]'
-            : 'text-[#8B949E] hover:text-[#E6EDF3] hover:bg-[#1F2428]'
+            ? 'text-[#58A6FF] border-[#58A6FF]'
+            : 'text-[#8B949E] border-transparent hover:text-[#E6EDF3]'
         }`}
       >
         <Code2 className="w-4 h-4" />
@@ -21,10 +21,10 @@ export function TabView({ activeTab, onTabChange }: TabViewProps) {
       </button>
       <button
         onClick={() => onTabChange('preview')}
-        className={`flex items-center gap-2 px-4 py-2 rounded-md transition-colors ${
+        className={`flex items-center gap-2 px-6 py-3 transition-colors border-b-2 ${
           activeTab === 'preview'
-            ? 'bg-[#1F2428] text-[#E6EDF3]'
-            : 'text-[#8B949E] hover:text-[#E6EDF3] hover:bg-[#1F2428]'
+            ? 'text-[#58A6FF] border-[#58A6FF]'
+            : 'text-[#8B949E] border-transparent hover:text-[#E6EDF3]'
         }`}
       >
         <Eye className="w-4 h-4" />

@@ -4,11 +4,10 @@ import { useEffect, useState } from 'react';
 interface PreviewFrameProps {
   files: any[];
   webContainer: WebContainer;
+  onLog: (log: string) => void;
 }
 
-//@ts-ignore
-export function PreviewFrame({ files, webContainer }: PreviewFrameProps) {
-  // In a real implementation, this would compile and render the preview
+export function PreviewFrame({ files, webContainer, onLog }: PreviewFrameProps) {
   const [url, setUrl] = useState("");
 
   async function main() {
@@ -16,17 +15,14 @@ export function PreviewFrame({ files, webContainer }: PreviewFrameProps) {
 
     installProcess.output.pipeTo(new WritableStream({
       write(data) {
-        console.log(data);
+        onLog(data);
       }
     }));
 
     await webContainer.spawn('npm', ['run', 'dev']);
 
-    // Wait for `server-ready` event
     webContainer.on('server-ready', (port, url) => {
-      // ...
-      console.log(url)
-      console.log(port)
+      onLog(`Server ready at ${url}`);
       setUrl(url);
     });
   }
@@ -34,8 +30,9 @@ export function PreviewFrame({ files, webContainer }: PreviewFrameProps) {
   useEffect(() => {
     main()
   }, [])
+
   return (
-    <div className="h-full flex items-center justify-center text-gray-400">
+    <div className="h-full flex items-center justify-center text-[#8B949E]">
       {!url && <div className="text-center">
         <p className="mb-2">Loading...</p>
       </div>}
@@ -43,3 +40,4 @@ export function PreviewFrame({ files, webContainer }: PreviewFrameProps) {
     </div>
   );
 }
+

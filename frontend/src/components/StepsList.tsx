@@ -9,7 +9,7 @@ interface StepsListProps {
 
 export function StepsList({ steps, currentStep, onStepClick }: StepsListProps) {
   return (
-    <div className="bg-[#161B22] rounded-lg border border-[#30363D] p-4 h-full overflow-auto">
+    <div className="bg-[#161B22] rounded-lg border border-[#30363D] p-4 h-full">
       <h2 className="text-lg font-semibold mb-4 text-[#E6EDF3]">Build Steps</h2>
       <div className="space-y-4">
         {steps.map((step) => (
