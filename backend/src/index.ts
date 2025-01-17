@@ -72,7 +72,7 @@ app.post("/chat", async (req, res) => {
 
     const messages = transformMessages(rawMessages);
 
-    const model: GenerativeModel = genAI.getGenerativeModel({ model: "gemini-1.5-pro", systemInstruction: getSystemPrompt(), generationConfig: { temperature: 0 } });
+    const model: GenerativeModel = genAI.getGenerativeModel({ model: "gemini-1.5-flash", systemInstruction: getSystemPrompt(), generationConfig: { temperature: 0 } });
 
     const chat = model.startChat({
         history: messages.messages,
