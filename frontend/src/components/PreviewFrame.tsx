@@ -7,7 +7,7 @@ interface PreviewFrameProps {
   onLog: (log: string) => void;
 }
 
-export function PreviewFrame({ files, webContainer, onLog }: PreviewFrameProps) {
+export function PreviewFrame({ webContainer, onLog }: PreviewFrameProps) {
   const [url, setUrl] = useState("");
 
   async function main() {
@@ -21,9 +21,9 @@ export function PreviewFrame({ files, webContainer, onLog }: PreviewFrameProps) 
 
     await webContainer.spawn('npm', ['run', 'dev']);
 
-    webContainer.on('server-ready', (port, url) => {
+    webContainer.on('server-ready', (url) => {
       onLog(`Server ready at ${url}`);
-      setUrl(url);
+      setUrl(url.toString());
     });
   }
 
