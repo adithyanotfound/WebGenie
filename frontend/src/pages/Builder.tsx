@@ -142,7 +142,56 @@ export function Builder() {
     webcontainer?.mount(mountStructure);
   }, [files, webcontainer]);
 
-  async function init() {
+  useEffect(() => {
+    async function init() {
+      const response = await axios.post(`${BACKEND_URL}/template`, {
+        prompt: prompt.trim()
+      });
+      setTemplateSet(true);
+      
+      const {prompts, uiPrompts} = response.data;
+
+      setSteps(parseXml(uiPrompts[0]).map((x: Step) => ({
+        ...x,
+        status: "pending"
+      })));
+
+      setLoading(true);
+      const stepsResponse = await axios.post(`${BACKEND_URL}/chat`, {
+        messages: [...prompts, prompt].map(content => ({
+          role: "user",
+          content
+        }))
+      })
+
+      setLoading(false);
+
+      setSteps(s => [...s, ...parseXml(stepsResponse.data.response.text).map(x => ({
+        ...x,
+        status: "pending" as "pending"
+      }))]);
+
+      setLlmMessages([...prompts, prompt].map(content => ({
+        role: "user",
+        content
+      })));
+
+      setLlmMessages(x => [...x, {role: "model", content: stepsResponse.data.response.text}]);
+
+      // Find and select main.tsx
+      const mainFile = files.find(file => file.path === '/src/main.tsx');
+      if (mainFile) {
+        setSelectedFile(mainFile);
+      }
+
+      // Switch to preview tab
+      setActiveTab('preview');
+    }
+
+    init();
+  }, [])
+
+  async function init2() {
     const response = await axios.post(`${BACKEND_URL}/template`, {
       prompt: prompt.trim()
     });
@@ -179,7 +228,7 @@ export function Builder() {
   }
 
   useEffect(() => {
-    init();
+    init2();
   }, [])
 
   return (
@@ -264,7 +313,7 @@ export function Builder() {
                 </div>
               ) : (
                 <PreviewFrame 
-                  //@ts-ignore
+                //@ts-ignore
                   webContainer={webcontainer} 
                   files={files}
                   onLog={(log) => setLogs(prev => [...prev, log])}

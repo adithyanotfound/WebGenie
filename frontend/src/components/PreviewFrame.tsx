@@ -1,35 +1,51 @@
 import { WebContainer } from '@webcontainer/api';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 interface PreviewFrameProps {
   files: any[];
   webContainer: WebContainer;
   onLog: (log: string) => void;
 }
-//@ts-ignore
+
 export function PreviewFrame({ files, webContainer, onLog }: PreviewFrameProps) {
   const [url, setUrl] = useState("");
+  const hasStarted = useRef(false);
 
   async function main() {
-    const installProcess = await webContainer.spawn('npm', ['install']);
+    if (hasStarted.current) return;
+    hasStarted.current = true;
 
-    installProcess.output.pipeTo(new WritableStream({
-      write(data) {
-        onLog(data);
-      }
-    }));
+    try {
+      onLog("Starting installation and development server...");
 
-    await webContainer.spawn('npm', ['run', 'dev']);
-    //@ts-ignore
-    webContainer.on('server-ready', (port, url) => {
-      onLog(`Server ready at ${url}`);
-      setUrl(url);
-    });
+      const process = await webContainer.spawn('sh', ['-c', 'npm install && npm run dev']);
+
+      process.output.pipeTo(new WritableStream({
+        write(data) {
+          onLog(data);
+        }
+      }));
+
+      webContainer.on('server-ready', (port, url) => {
+        onLog(`Server ready at ${url}`);
+        setUrl(url);
+      });
+    } catch (error: any) {
+      onLog(`Error: ${error.message}`);
+      console.error('Error in main function:', error);
+      hasStarted.current = false;
+    }
   }
 
   useEffect(() => {
-    main()
-  }, [])
+    if (webContainer && !hasStarted.current) {
+      main();
+    }
+
+    return () => {
+      hasStarted.current = false;
+    };
+  }, [webContainer]);
 
   return (
     <div className="h-full flex items-center justify-center text-[#8B949E]">
