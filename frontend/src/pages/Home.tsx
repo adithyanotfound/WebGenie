@@ -1,6 +1,6 @@
 import React, { useState, KeyboardEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Link2, Sparkles, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 export function Home() {
   const [prompt, setPrompt] = useState('');
