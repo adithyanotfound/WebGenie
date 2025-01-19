@@ -3,14 +3,14 @@ import { Step, StepType } from "./types";
 /*
  * Parse input XML and convert it into steps.
  * Eg: Input -
- * <boltArtifact id=\"project-import\" title=\"Project Files\">
- *  <boltAction type=\"file\" filePath=\"eslint.config.js\">
+ * <Artifact id=\"project-import\" title=\"Project Files\">
+ *  <Action type=\"file\" filePath=\"eslint.config.js\">
  *      import js from '@eslint/js';\nimport globals from 'globals';\n
- *  </boltAction>
- * <boltAction type="shell">
+ *  </Action>
+ * <Action type="shell">
  *      node index.js
- * </boltAction>
- * </boltArtifact>
+ * </Action>
+ * </Artifact>
  *
  * Output -
  * [{
@@ -29,9 +29,9 @@ import { Step, StepType } from "./types";
  * The input can have strings in the middle they need to be ignored
  */
 export function parseXml(response: string): Step[] {
-  // Extract the XML content between <boltArtifact> tags
+  // Extract the XML content between <Artifact> tags
   const xmlMatch = response.match(
-    /<boltArtifact[^>]*>([\s\S]*?)<\/boltArtifact>/,
+    /<Artifact[^>]*>([\s\S]*?)<\/Artifact>/,
   );
 
   if (!xmlMatch) {
@@ -55,9 +55,9 @@ export function parseXml(response: string): Step[] {
     status: "pending",
   });
 
-  // Regular expression to find boltAction elements
+  // Regular expression to find Action elements
   const actionRegex =
-    /<boltAction\s+type="([^"]*)"(?:\s+filePath="([^"]*)")?>([\s\S]*?)<\/boltAction>/g;
+    /<Action\s+type="([^"]*)"(?:\s+filePath="([^"]*)")?>([\s\S]*?)<\/Action>/g;
 
   let match;
   while ((match = actionRegex.exec(xmlContent)) !== null) {
