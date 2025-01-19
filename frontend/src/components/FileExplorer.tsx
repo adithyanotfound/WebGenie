@@ -27,8 +27,8 @@ function FileNode({ item, depth, onFileClick }: FileNodeProps) {
   return (
     <div className="select-none">
       <div
-        className="flex items-center gap-2 p-2 hover:bg-[#1F2428] rounded-md cursor-pointer"
-        style={{ paddingLeft: `${depth * 1.5}rem` }}
+        className="flex items-center gap-2 px-2 py-1 hover:bg-[#2D333B] rounded cursor-pointer text-sm"
+        style={{ paddingLeft: `${depth * 1.25}rem` }}
         onClick={handleClick}
       >
         {item.type === 'folder' && (
@@ -65,12 +65,12 @@ function FileNode({ item, depth, onFileClick }: FileNodeProps) {
 
 export function FileExplorer({ files, onFileSelect }: FileExplorerProps) {
   return (
-    <div className="bg-[#161B22] rounded-lg border border-[#30363D] p-4 h-full overflow-auto">
-      <h2 className="text-lg font-semibold mb-4 flex items-center gap-2 text-[#E6EDF3]">
-        <FolderTree className="w-5 h-5 text-[#58A6FF]" />
+    <div className="bg-[#1C2128] rounded-lg border border-[#30363D] p-3 max-h-[calc(100vh-8rem)]">
+      <h2 className="text-sm font-medium mb-3 flex items-center gap-2 text-[#ADBAC7]">
+        <FolderTree className="w-4 h-4 text-[#539BF5]" />
         File Explorer
       </h2>
-      <div className="space-y-1">
+      <div className="space-y-0.5">
         {files.map((file, index) => (
           <FileNode
             key={`${file.path}-${index}`}

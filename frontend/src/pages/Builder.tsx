@@ -233,13 +233,13 @@ export function Builder() {
 
   return (
     <div className="min-h-screen bg-[#0D1117] flex flex-col">
-      <header className="bg-[#161B22] border-b border-[#30363D] px-6 py-4">
-        <h1 className="text-xl font-semibold text-[#E6EDF3]">Website Builder</h1>
-        <p className="text-sm text-[#8B949E] mt-1">Prompt: {prompt}</p>
+      <header className="bg-[#1C2128] border-b border-[#30363D] px-6 py-3"> {/* Update 1 */}
+        <h1 className="text-lg font-medium text-[#E6EDF3]">Website Builder</h1>
+        <p className="text-sm text-[#768390] mt-1">Prompt: {prompt}</p>
       </header>
       
       <div className="flex-1 overflow-hidden">
-        <div className="h-full grid grid-cols-4 gap-8 p-8"> {/* Update 1 */}
+        <div className="h-full grid grid-cols-4 gap-4 p-8"> {/* Update 1 */}
           <div className="col-span-1 space-y-6 overflow-auto">
             <div>
               <div className="max-h-[75vh] overflow-scroll">

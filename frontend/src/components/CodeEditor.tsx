@@ -23,11 +23,16 @@ export function CodeEditor({ file }: CodeEditorProps) {
       options={{
         readOnly: true,
         minimap: { enabled: false },
-        fontSize: 14,
+        fontSize: 13,
+        lineHeight: 20,
+        fontFamily: 'Menlo, Monaco, "Courier New", monospace',
         wordWrap: 'on',
         scrollBeyondLastLine: false,
+        padding: { top: 16, bottom: 16 },
+        renderLineHighlight: 'none',
       }}
     />
+
   );
 }
 

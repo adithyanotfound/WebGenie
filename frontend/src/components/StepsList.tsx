@@ -9,30 +9,29 @@ interface StepsListProps {
 
 export function StepsList({ steps, currentStep, onStepClick }: StepsListProps) {
   return (
-    <div className="bg-[#161B22] rounded-lg border border-[#30363D] p-4 h-full">
-      <h2 className="text-lg font-semibold mb-4 text-[#E6EDF3]">Build Steps</h2>
-      <div className="space-y-4">
+    <div className="bg-[#1C2128] rounded-lg border border-[#30363D] p-3">
+      <h2 className="text-sm font-medium mb-3 text-[#ADBAC7]">Build Steps</h2>
+      <div className="space-y-2">
         {steps.map((step) => (
           <div
             key={step.id}
-            className={`p-3 rounded-lg cursor-pointer transition-colors ${
-              currentStep === step.id
-                ? 'bg-[#1F2428] border border-[#30363D]'
-                : 'hover:bg-[#1F2428]'
-            }`}
+            className={`p-2 rounded cursor-pointer transition-colors ${currentStep === step.id
+                ? 'bg-[#2D333B] border border-[#444C56]'
+                : 'hover:bg-[#2D333B]'
+              }`}
             onClick={() => onStepClick(step.id)}
           >
             <div className="flex items-center gap-2">
               {step.status === 'completed' ? (
-                <CheckCircle className="w-5 h-5 text-[#238636]" />
+                <CheckCircle className="w-4 h-4 text-[#2DA44E]" />
               ) : step.status === 'in-progress' ? (
-                <Clock className="w-5 h-5 text-[#58A6FF]" />
+                <Clock className="w-4 h-4 text-[#539BF5]" />
               ) : (
-                <Circle className="w-5 h-5 text-[#8B949E]" />
+                <Circle className="w-4 h-4 text-[#768390]" />
               )}
-              <h3 className="font-medium text-[#E6EDF3]">{step.title}</h3>
+              <h3 className="text-sm font-medium text-[#ADBAC7]">{step.title}</h3>
             </div>
-            <p className="text-sm text-[#8B949E] mt-2">{step.description}</p>
+            <p className="text-xs text-[#768390] mt-1">{step.description}</p>
           </div>
         ))}
       </div>
