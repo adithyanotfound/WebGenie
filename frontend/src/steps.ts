@@ -30,9 +30,7 @@ import { Step, StepType } from "./types";
  */
 export function parseXml(response: string): Step[] {
   // Extract the XML content between <Artifact> tags
-  const xmlMatch = response.match(
-    /<Artifact[^>]*>([\s\S]*?)<\/Artifact>/,
-  );
+  const xmlMatch = response.match(/<Artifact[^>]*>([\s\S]*?)<\/Artifact>/);
 
   if (!xmlMatch) {
     return [];

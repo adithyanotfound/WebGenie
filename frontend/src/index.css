@@ -3,6 +3,6 @@
 @tailwind utilities;
 
 body {
-    overflow: hidden;
-    /* Hide scrollbars */
+  overflow: hidden;
+  /* Hide scrollbars */
 }
