@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { FolderTree, File, ChevronRight, ChevronDown } from 'lucide-react';
-import { FileItem } from '../types';
+import { useState } from "react";
+import { FolderTree, File, ChevronRight, ChevronDown } from "lucide-react";
+import { FileItem } from "../types";
 
 interface FileExplorerProps {
   files: FileItem[];
@@ -17,7 +17,7 @@ function FileNode({ item, depth, onFileClick }: FileNodeProps) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const handleClick = () => {
-    if (item.type === 'folder') {
+    if (item.type === "folder") {
       setIsExpanded(!isExpanded);
     } else {
       onFileClick(item);
@@ -31,7 +31,7 @@ function FileNode({ item, depth, onFileClick }: FileNodeProps) {
         style={{ paddingLeft: `${depth * 1.25}rem` }}
         onClick={handleClick}
       >
-        {item.type === 'folder' && (
+        {item.type === "folder" && (
           <span className="text-gray-400">
             {isExpanded ? (
               <ChevronDown className="w-4 h-4" />
@@ -40,14 +40,14 @@ function FileNode({ item, depth, onFileClick }: FileNodeProps) {
             )}
           </span>
         )}
-        {item.type === 'folder' ? (
+        {item.type === "folder" ? (
           <FolderTree className="w-4 h-4 text-blue-400" />
         ) : (
           <File className="w-4 h-4 text-gray-400" />
         )}
         <span className="text-[#E6EDF3]">{item.name}</span>
       </div>
-      {item.type === 'folder' && isExpanded && item.children && (
+      {item.type === "folder" && isExpanded && item.children && (
         <div>
           {item.children.map((child, index) => (
             <FileNode
@@ -83,4 +83,3 @@ export function FileExplorer({ files, onFileSelect }: FileExplorerProps) {
     </div>
   );
 }
-

@@ -1,20 +1,20 @@
-import React, { useState, KeyboardEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import React, { useState, KeyboardEvent } from "react";
+import { useNavigate } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 
 export function Home() {
-  const [prompt, setPrompt] = useState('');
+  const [prompt, setPrompt] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = (e?: React.FormEvent) => {
     e?.preventDefault();
     if (prompt.trim()) {
-      navigate('/builder', { state: { prompt } });
+      navigate("/builder", { state: { prompt } });
     }
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSubmit();
     }
@@ -30,7 +30,7 @@ export function Home() {
 
   const handleSuggestionClick = (suggestion: string) => {
     setPrompt(suggestion);
-    navigate('/builder', { state: { prompt: suggestion } });
+    navigate("/builder", { state: { prompt: suggestion } });
   };
 
   return (
@@ -82,4 +82,3 @@ export function Home() {
     </div>
   );
 }
-

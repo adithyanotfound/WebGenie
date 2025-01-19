@@ -1,5 +1,5 @@
-import { X } from 'lucide-react';
-import { FileViewerProps } from '../types';
+import { X } from "lucide-react";
+import { FileViewerProps } from "../types";
 
 export function FileViewer({ file, onClose }: FileViewerProps) {
   if (!file) return null;
@@ -18,7 +18,7 @@ export function FileViewer({ file, onClose }: FileViewerProps) {
         </div>
         <div className="p-4 overflow-auto max-h-[calc(80vh-4rem)]">
           <pre className="text-sm text-gray-300 font-mono whitespace-pre-wrap">
-            {file.content || 'No content available'}
+            {file.content || "No content available"}
           </pre>
         </div>
       </div>

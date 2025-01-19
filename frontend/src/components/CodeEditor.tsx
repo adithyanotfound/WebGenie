@@ -1,5 +1,5 @@
-import Editor from '@monaco-editor/react';
-import { FileItem } from '../types';
+import Editor from "@monaco-editor/react";
+import { FileItem } from "../types";
 
 interface CodeEditorProps {
   file: FileItem | null;
@@ -19,20 +19,18 @@ export function CodeEditor({ file }: CodeEditorProps) {
       height="100%"
       defaultLanguage="typescript"
       theme="vs-dark"
-      value={file.content || ''}
+      value={file.content || ""}
       options={{
         readOnly: true,
         minimap: { enabled: false },
         fontSize: 13,
         lineHeight: 20,
         fontFamily: 'Menlo, Monaco, "Courier New", monospace',
-        wordWrap: 'on',
+        wordWrap: "on",
         scrollBeyondLastLine: false,
         padding: { top: 16, bottom: 16 },
-        renderLineHighlight: 'none',
+        renderLineHighlight: "none",
       }}
     />
-
   );
 }
-

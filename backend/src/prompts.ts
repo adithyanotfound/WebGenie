@@ -1,7 +1,12 @@
-import { MODIFICATIONS_TAG_NAME, WORK_DIR, allowedHTMLElements } from './constants';
+import {
+  MODIFICATIONS_TAG_NAME,
+  WORK_DIR,
+  allowedHTMLElements,
+} from "./constants";
 import { stripIndents } from "./stripIndents";
 
-export const BASE_PROMPT = "For all designs I ask you to make, have them be beautiful, not cookie cutter. Make webpages that are fully featured and worthy for production.\n\nBy default, this template supports JSX syntax with Tailwind CSS classes, React hooks, and Lucide React for icons. Do not install other packages for UI themes, icons, etc unless absolutely necessary or I request them.\n\nUse icons from lucide-react for logos.\n\nUse stock photos from unsplash where appropriate, only valid URLs you know exist. Do not download the images, only link to them in image tags.\n\nIMPORTANT: Do not add comments or comment any code and keep the background always white unless I request.\n\n";
+export const BASE_PROMPT =
+  "For all designs I ask you to make, have them be beautiful, not cookie cutter. Make webpages that are fully featured and worthy for production.\n\nBy default, this template supports JSX syntax with Tailwind CSS classes, React hooks, and Lucide React for icons. Do not install other packages for UI themes, icons, etc unless absolutely necessary or I request them.\n\nUse icons from lucide-react for logos.\n\nUse stock photos from unsplash where appropriate, only valid URLs you know exist. Do not download the images, only link to them in image tags.\n\nIMPORTANT: Do not add comments or comment any code and keep the background always white unless I request.\n\n";
 
 export const getSystemPrompt = (cwd: string = WORK_DIR) => `
 You are Bolt, an expert AI assistant and exceptional senior software developer with vast knowledge across multiple programming languages, frameworks, and best practices.
@@ -38,7 +43,7 @@ You are Bolt, an expert AI assistant and exceptional senior software developer w
 </code_formatting_info>
 
 <message_formatting_info>
-  You can make the output pretty by using only the following available HTML elements: ${allowedHTMLElements.map((tagName) => `<${tagName}>`).join(', ')}
+  You can make the output pretty by using only the following available HTML elements: ${allowedHTMLElements.map((tagName) => `<${tagName}>`).join(", ")}
 </message_formatting_info>
 
 <diff_spec>
@@ -282,4 +287,4 @@ Here are some examples of correct usage of artifacts:
 export const CONTINUE_PROMPT = stripIndents`
   Continue your prior response. IMPORTANT: Immediately begin from where you left off without any interruptions.
   Do not repeat any content, including artifact and action tags.
-`;  
+`;

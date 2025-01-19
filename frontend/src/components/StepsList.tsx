@@ -1,5 +1,5 @@
-import { CheckCircle, Circle, Clock } from 'lucide-react';
-import { Step } from '../types';
+import { CheckCircle, Circle, Clock } from "lucide-react";
+import { Step } from "../types";
 
 interface StepsListProps {
   steps: Step[];
@@ -15,21 +15,24 @@ export function StepsList({ steps, currentStep, onStepClick }: StepsListProps) {
         {steps.map((step) => (
           <div
             key={step.id}
-            className={`p-2 rounded cursor-pointer transition-colors ${currentStep === step.id
-                ? 'bg-[#2D333B] border border-[#444C56]'
-                : 'hover:bg-[#2D333B]'
-              }`}
+            className={`p-2 rounded cursor-pointer transition-colors ${
+              currentStep === step.id
+                ? "bg-[#2D333B] border border-[#444C56]"
+                : "hover:bg-[#2D333B]"
+            }`}
             onClick={() => onStepClick(step.id)}
           >
             <div className="flex items-center gap-2">
-              {step.status === 'completed' ? (
+              {step.status === "completed" ? (
                 <CheckCircle className="w-4 h-4 text-[#2DA44E]" />
-              ) : step.status === 'in-progress' ? (
+              ) : step.status === "in-progress" ? (
                 <Clock className="w-4 h-4 text-[#539BF5]" />
               ) : (
                 <Circle className="w-4 h-4 text-[#768390]" />
               )}
-              <h3 className="text-sm font-medium text-[#ADBAC7]">{step.title}</h3>
+              <h3 className="text-sm font-medium text-[#ADBAC7]">
+                {step.title}
+              </h3>
             </div>
             <p className="text-xs text-[#768390] mt-1">{step.description}</p>
           </div>
@@ -38,4 +41,3 @@ export function StepsList({ steps, currentStep, onStepClick }: StepsListProps) {
     </div>
   );
 }
-

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
 interface TerminalProps {
   logs: string[];
@@ -18,7 +18,7 @@ export function Terminal({ logs }: TerminalProps) {
       <div className="flex items-center px-4 py-2 bg-[#252526] border-b border-[#30363D]">
         <span className="text-[#E6EDF3] text-sm font-medium">Terminal</span>
       </div>
-      <div 
+      <div
         ref={terminalRef}
         className="p-4 h-[calc(100%-2.5rem)] overflow-auto font-mono text-sm text-[#E6EDF3] whitespace-pre-wrap"
       >
@@ -31,4 +31,3 @@ export function Terminal({ logs }: TerminalProps) {
     </div>
   );
 }
-

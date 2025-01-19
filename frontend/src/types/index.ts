@@ -3,7 +3,7 @@ export enum StepType {
   CreateFolder,
   EditFile,
   DeleteFile,
-  RunScript
+  RunScript,
 }
 
 export interface Step {
@@ -11,7 +11,7 @@ export interface Step {
   title: string;
   description: string;
   type: StepType;
-  status: 'pending' | 'in-progress' | 'completed';
+  status: "pending" | "in-progress" | "completed";
   code?: string;
   path?: string;
 }
@@ -23,7 +23,7 @@ export interface Project {
 
 export interface FileItem {
   name: string;
-  type: 'file' | 'folder';
+  type: "file" | "folder";
   children?: FileItem[];
   content?: string;
   path: string;
