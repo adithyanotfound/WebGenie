@@ -300,7 +300,7 @@ export function Builder() {
     <div className="min-h-screen bg-[#0D1117] flex flex-col">
       <header className="bg-[#1C2128] border-b border-[#30363D] px-6 py-3">
         <h1 className="text-lg font-medium text-[#E6EDF3]">
-          AI Website Builder
+          WebGenie
         </h1>
         <p className="text-sm text-[#768390] mt-1">Prompt: {prompt}</p>
       </header>
