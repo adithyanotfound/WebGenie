@@ -5,7 +5,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsc -b && node dist/index.js",
-    "dev2": "tsc -b && node dist/app.js"
+    "build": "tsc -b",
+    "prod": "node dist/index.js"
   },
   "keywords": [],
   "author": "",
