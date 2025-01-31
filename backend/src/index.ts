@@ -10,7 +10,7 @@ dotenv.config();
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);
 
-const app = express();
+export const app = express();
 app.use(cors());
 app.use(express.json());
 
