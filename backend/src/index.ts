@@ -5,6 +5,7 @@ import { BASE_PROMPT, getSystemPrompt } from "./prompts";
 import { basePrompt as nodeBasePrompt } from "./defaults/node";
 import { basePrompt as reactBasePrompt } from "./defaults/react";
 import cors from "cors";
+import { version } from "os";
 dotenv.config();
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);
@@ -39,6 +40,14 @@ const asyncHandler =
   (fn: any) => (req: Request, res: Response, next: NextFunction) => {
     Promise.resolve(fn(req, res, next)).catch(next);
   };
+
+app.get("/", (req: Request, res: Response) => {
+  res.json({
+    name: "Webgenie",
+    version: "1.0.0",
+    status: "Healthy",
+  });
+});
 
 app.post(
   "/template",
