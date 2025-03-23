@@ -55,7 +55,7 @@ app.post(
     const prompt = req.body.prompt;
 
     const model: GenerativeModel = genAI.getGenerativeModel({
-      model: "gemini-1.5-flash",
+      model: "models/gemini-2.0-flash",
       systemInstruction:
         "Return either node or react based on what do you think this project should be. Only return a single word either 'node' or 'react'. Do not return anything extra.",
     });
@@ -98,7 +98,7 @@ app.post(
     const messages = transformMessages(rawMessages);
 
     const model: GenerativeModel = genAI.getGenerativeModel({
-      model: "gemini-1.5-flash",
+      model: "models/gemini-2.0-flash",
       systemInstruction: getSystemPrompt(),
       generationConfig: { temperature: 0 },
     });
